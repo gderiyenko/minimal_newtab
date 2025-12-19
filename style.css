@@ -1,6 +1,7 @@
 /* Clear default margin and padding */
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -17,8 +18,10 @@ body {
     max-height: 100vh;
     text-align: center;
     padding-top: calc(10vh + 3rem);
-    font-size: 1.1rem;    
-    transition: background-image 1s ease-in-out, color 0.3s ease;
+    font-size: 1.1rem;
+    transition:
+        background-image 1s ease-in-out,
+        color 0.3s ease;
 }
 
 body.dark {
@@ -38,12 +41,6 @@ body {
 .clock {
     font-size: 5rem;
     margin-bottom: 0.5rem;
-}
-
-.weather {
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
-    color: inherit;
 }
 
 .shortcuts {
@@ -96,7 +93,9 @@ body {
     text-underline-offset: 2px;
     color: inherit;
     cursor: pointer;
-    transition: color 0.2s ease, transform 0.2s ease;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
     word-break: break-word;
     overflow-wrap: anywhere;
     width: 100%;
@@ -205,7 +204,9 @@ body {
     max-width: 0;
     overflow: hidden;
     white-space: nowrap;
-    transition: opacity 0.3s ease, max-width 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        max-width 0.3s ease;
     font-size: 0.95rem;
     text-decoration: underline dotted;
     direction: ltr;
@@ -240,7 +241,9 @@ body {
     max-width: 0;
     overflow: hidden;
     white-space: nowrap;
-    transition: opacity 0.3s ease, max-width 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        max-width 0.3s ease;
     font-size: 0.95rem;
     text-decoration: underline dotted;
 }
@@ -292,13 +295,13 @@ body.light .tooltip-wrapper.disabled:hover::after {
     font-size: 0.85em;
     white-space: nowrap;
     z-index: 20;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
 body.light .tooltip-wrapper:hover::after {
     background-color: #eee;
     color: #222;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 .photo-credit {
     position: absolute;
@@ -311,7 +314,7 @@ body.light .tooltip-wrapper:hover::after {
     padding: 4px 8px;
     border-radius: 4px;
     display: inline-flex;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .photo-credit a {
@@ -333,7 +336,6 @@ body.light .tooltip-wrapper:hover::after {
 .refresh-background:hover {
     opacity: 1;
 }
-
 
 body.options {
     align-items: center;
@@ -382,19 +384,25 @@ div#back:hover {
     -webkit-backdrop-filter: blur(20px);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
     display: flex;
     overflow: hidden;
 }
 
 body.dark #options-wrapper {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
 }
 
 body.light #options-wrapper {
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.03) inset;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.03) inset;
 }
 
 #options-wrapper h1 {
@@ -473,7 +481,7 @@ body.light #options-wrapper {
 }
 
 .checkbox-label input:checked + .custom-checkbox::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 5px;
     top: 2px;
@@ -507,7 +515,9 @@ body.light .checkbox-label input:checked + .custom-checkbox::after {
     font-size: 0.95em;
     margin-top: 0.5em;
     box-sizing: border-box;
-    transition: border-color 0.15s ease, background-color 0.15s ease;
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease;
 }
 
 #options-wrapper input[type="text"]:focus,
@@ -608,7 +618,8 @@ body.light #options-wrapper input[type="range"] {
     table-layout: fixed;
 }
 
-.options-table th, .options-table td {
+.options-table th,
+.options-table td {
     padding: 10px 12px;
     text-align: left;
 }
@@ -733,9 +744,9 @@ body.light .options-sidebar nav a.active {
     border-top: 1px solid rgba(128, 128, 128, 0.15);
     padding: 1.2em 0;
     padding-bottom: 1.2em;
-    position: sticky; 
-    bottom: 0; 
-    background: linear-gradient(to top, rgba(30, 30, 30, 1) 80%, rgba(30, 30, 30, 0));
+    position: sticky;
+    bottom: 0;
+    /*background: */
     padding-top: 2em;
     display: flex;
     flex-direction: column;
@@ -749,7 +760,11 @@ body.light .options-sidebar nav a.active {
 }
 
 body.light .button-group {
-    background: linear-gradient(to top, rgba(255, 255, 255, 1) 80%, rgba(255, 255, 255, 0));
+    background: linear-gradient(
+        to top,
+        rgba(255, 255, 255, 1) 80%,
+        rgba(255, 255, 255, 0)
+    );
     border-top-color: rgba(0, 0, 0, 0.08);
 }
 
@@ -789,7 +804,6 @@ body.light .button-group {
     color: #555;
     line-height: 1;
 }
-
 
 body.light .background-add-label {
     color: #ccc;
@@ -918,7 +932,10 @@ body.light #options-wrapper button.ghost-button.drag-over {
     background: transparent;
     border: 1px solid rgba(128, 128, 128, 0.5);
     color: inherit;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
 }
 
 #options-wrapper button.ghost-button:hover {
@@ -964,7 +981,9 @@ body.light #options-wrapper button.ghost-button.drag-over {
     border: 1px dashed rgba(128, 128, 128, 0.4);
     border-radius: 4px;
     text-align: center;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
     box-sizing: border-box;
 }
 
@@ -1030,7 +1049,7 @@ body.light .drop-zone.drag-over {
     border: none;
 }
 
-#save { 
+#save {
     background: var(--color-accent);
     color: white;
 }
@@ -1040,7 +1059,7 @@ body.light .drop-zone.drag-over {
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
-#restore-defaults { 
+#restore-defaults {
     background: transparent;
     border: 2px solid #3b3b3b;
     color: #3b3b3b;
@@ -1101,7 +1120,6 @@ body.light {
 .sub-settings.disabled,
 #sidebar-options.disabled,
 #shortcuts-links.disabled,
-#weather-options.disabled,
 #bookmark-folder-selector-span.disabled,
 #pixel-art-select-div.disabled {
     opacity: 0.4;
@@ -1148,7 +1166,7 @@ body.light {
 }
 
 #notification.success {
-    background-color: #4CAF50; /* Green */
+    background-color: #4caf50; /* Green */
 }
 
 #notification.restore {
@@ -1171,7 +1189,7 @@ body.light {
 }
 
 .refresh-icon::before {
-    content: '↻';
+    content: "↻";
     font-size: 1.2rem;
     color: white;
 }
@@ -1340,7 +1358,9 @@ body.light .sidebar.right .sidebar-caret {
     font-family: monospace;
     font-size: 0.95rem;
     text-align: center;
-    transition: background-color 0.18s ease, transform 0.08s ease;
+    transition:
+        background-color 0.18s ease,
+        transform 0.08s ease;
 }
 
 .sidebar-customize-btn:hover {
@@ -1349,8 +1369,8 @@ body.light .sidebar.right .sidebar-caret {
 }
 
 body.light .sidebar-customize-btn {
-    background: rgba(0,0,0,0.03);
-    border-color: rgba(0,0,0,0.06);
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.06);
 }
 
 /* About panel icon links - default uses light border on dark backgrounds */
@@ -1363,12 +1383,18 @@ body.light .sidebar-customize-btn {
     border-radius: 6px;
 }
 
-.webstore-badge-link { padding: 4px; }
+.webstore-badge-link {
+    padding: 4px;
+}
 
-.fallback-store-icon { color: inherit; }
+.fallback-store-icon {
+    color: inherit;
+}
 
 /* Ensure both About icons (webstore + github) visually match the official badge size */
-.about-links { gap: 12px; }
+.about-links {
+    gap: 12px;
+}
 
 /* Make both icons look like they're part of the page: no heavy borders, same size as chrome badge */
 .about-links .icon-link {
@@ -1379,9 +1405,11 @@ body.light .sidebar-customize-btn {
     width: auto;
     height: auto;
     background: transparent; /* blend with page */
-    border: 1px solid rgba(255,255,255,0.14); /* white-ish border for dark mode */
+    border: 1px solid rgba(255, 255, 255, 0.14); /* white-ish border for dark mode */
     border-radius: 6px;
-    transition: transform 0.08s ease, opacity 0.12s ease;
+    transition:
+        transform 0.08s ease,
+        opacity 0.12s ease;
 }
 
 .about-links .icon-link img {
@@ -1397,7 +1425,7 @@ body.light .sidebar-customize-btn {
 
 /* Light theme: use darker (black) border so icons stand out */
 body.light .about-links .icon-link {
-    border: 1px solid rgba(0,0,0,0.16);
+    border: 1px solid rgba(0, 0, 0, 0.16);
 }
 
 .widget {
@@ -1510,7 +1538,6 @@ body.light .widget {
     word-break: break-word;
 }
 
-
 .todo-widget .todo-list li:last-child {
     border-bottom: none;
 }
@@ -1535,7 +1562,9 @@ body.light .widget {
     margin-right: 10px;
     display: inline-block;
     position: relative;
-    transition: background-color 0.2s, border-color 0.2s;
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
     flex-shrink: 0; /* Prevent checkbox from shrinking */
 }
 
@@ -1591,7 +1620,7 @@ body.todo-dragging * {
 .todo-widget .todo-input {
     width: 100%;
     padding: 8px;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid transparent;
     border-radius: 4px;
     color: inherit;

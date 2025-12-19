@@ -21,7 +21,6 @@
                 <a href="#general" class="active">General</a>
                 <a href="#shortcuts">Shortcuts</a>
                 <a href="#appearance">Appearance</a>
-                    <a href="#sidebar-settings">Sidebar</a>
                     <a href="#preset">Backup</a>
                     <a href="#about">About</a>
             </nav>
@@ -30,33 +29,15 @@
             <div id="general" class="options-panel active">
                 <h2>General Components</h2>
                 <label class="checkbox-label"><input type="checkbox" id="show-clock"><span class="custom-checkbox"></span> Show Clock</label>
-                <label class="checkbox-label"><input type="checkbox" id="show-weather"><span class="custom-checkbox"></span> Show Weather</label>
-                <div id="weather-options" class="sub-settings">
-                    <label class="checkbox-label"><input type="checkbox" id="use-custom-city"><span class="custom-checkbox"></span> Use a custom location</label>
-                    <div id="custom-city-container" style="display: none;">
-                        <label for="custom-city">Custom City</label>
-                        <div id="city-search-container">
-                            <input type="text" id="custom-city" name="custom-city" placeholder="Search for a city..." autocomplete="off">
-                            <div id="city-suggestions"></div>
-                        </div>
-                    </div>
-                    <div class="setting-row segmented-control-container">
-                        <label>Temperature Unit:</label>
-                        <div class="segmented-control">
-                            <label><input type="radio" name="temp-unit" value="celsius"><span>°C</span></label>
-                            <label><input type="radio" name="temp-unit" value="fahrenheit"><span>°F</span></label>
-                        </div>
-                    </div>
-                </div>
                 <label class="checkbox-label"><input type="checkbox" id="show-bookmarks"><span class="custom-checkbox"></span> Show Bookmarks</label>
                 <div id="bookmark-folder-selector-span" class="sub-settings">
                     <span id="expand-bookmarks-span">
                     <label class="checkbox-label"><input type="checkbox" id="expand-bookmarks"><span class="custom-checkbox"></span> Expand bookmark folders by default</label>
                     </span>
-                    <label for="bookmark-folders" class="selector-label">Select Bookmark folder: 
-                        <select id="bookmark-folders" name="bookmark-folders">
+                    <label for="bookmark-folders" class="selector-label">Select Bookmark folder:
+                        <select id="bookmark-folders" name="bookmark-folders"></select>
                     </label>
-                    </select>
+
                 </div>
             </div>
 
@@ -192,41 +173,6 @@ body { font-family: 'Comic Sans MS'; }
                 </div>
             </div>
 
-            <div id="sidebar-settings" class="options-panel">
-                <h2>Sidebar</h2>
-                <label class="checkbox-label"><input type="checkbox" id="show-sidebar"><span class="custom-checkbox"></span> Show Sidebar</label>
-                <div id="sidebar-options" class="sub-settings">
-                    <div class="setting-row segmented-control-container">
-                        <label>Sidebar Position:</label>
-                        <div class="segmented-control">
-                            <label><input type="radio" name="sidebar-position" value="left"><span>Left</span></label>
-                            <label><input type="radio" name="sidebar-position" value="right"><span>Right</span></label>
-                        </div>
-                    </div>
-                    <div class="sub-settings">
-                        <label>Widgets (drag to reorder):</label>
-                        <table class="options-table" id="sidebar-widgets-table">
-                            <thead>
-                                <tr>
-                                    <th>Show</th>
-                                    <th>Widget</th>
-                                    <th class="drag-handle-header">Order</th>
-                                </tr>
-                            </thead>
-                            <tbody id="sidebar-widgets" class="reorder-list"></tbody>
-                        </table>
-                    </div>
-                    <br>
-                    <div class="setting-row">
-                        <div class="tooltip-wrapper" id="sidebar-show-customize-wrapper" data-tooltip="This is required while 'Keep sidebar expanded' is enabled.">
-                            <label class="checkbox-label"><input type="checkbox" id="sidebar-show-customize"><span class="custom-checkbox"></span> Show Customize button in sidebar</label>
-                        </div>
-                    </div>
-                    <div class="setting-row">
-                        <label class="checkbox-label"><input type="checkbox" id="sidebar-expanded-check"><span class="custom-checkbox"></span> Keep sidebar expanded</label>
-                    </div>
-                </div>
-            </div>
 
             <div id="preset" class="options-panel">
                 <h2>Backup</h2>
