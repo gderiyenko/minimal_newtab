@@ -1,39 +1,22 @@
 import { showNotification } from "./widgets/notification.js";
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
-
   const settings_keys = [
     "clock",
-    "tempUnit",
     "bookmarks",
-    "bookmarkFolder",
-    "expandBookmarks",
     "topRight",
     "topRightOrder",
-    "pixelArt",
-    "selectedPixelArt",
-    "customSVG",
-    "pixelArtOpacity",
     "pixelArtDensity",
     "pixelArtColorDark",
     "pixelArtColorLight",
     "theme",
     "backgroundImage",
 
-    "useUnsplash",
-    "unsplashApiKey",
-    "unsplashUpdateFrequency",
-    "showUnsplashRefresh",
     "customCSS",
   ];
 
-
-
   let settingsJsonStr = localStorage.getItem("settings") || JSON.stringify(defaultSettings);
-  let settings = JSON.parse(settingsJsonStr);
-  settings_keys.forEach(key => settings[key] ??= defaultSettings[key]);
+  let settings = JSON.parse(settingsJsonStr); settings_keys.forEach((key) => (settings[key] ??= defaultSettings[key]));
 
   if (settings["clock"]) {
     document.getElementById("show-clock").checked = true;
@@ -41,48 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   settings["bookmarks"]
     ? (document.getElementById("show-bookmarks").checked = true)
-    : document
-        .querySelector("#bookmark-folder-selector-span")
-        .classList.add("disabled");
-
-  settings["expandBookmarks"]
-    ? (document.getElementById("expand-bookmarks").checked = true)
     : null;
 
   settings["topRight"]
     ? (document.getElementById("show-topRight").checked = true)
     : document.querySelector("#shortcuts-links").classList.add("disabled");
 
-  settings["pixelArt"]
-    ? (document.getElementById("show-pixelArt").checked = true)
-    : document.getElementById("pixel-art-select-div").classList.add("disabled");
-
-  if (settings["selectedPixelArt"]) {
-    document.getElementById("pixel-art-select").value =
-      settings["selectedPixelArt"];
-    if (settings["selectedPixelArt"] == "custom") {
-      document.getElementById("custom-svg-input-div").style.display = "block";
-      document.getElementById("custom-svg-input").value = settings["customSVG"];
-    } else {
-      document.getElementById("custom-svg-input-div").style.display = "none";
-    }
-  }
-  if (settings["pixelArtOpacity"]) {
-    document.getElementById("pixelArtOpacity").value =
-      settings["pixelArtOpacity"];
-  }
-  if (settings["pixelArtDensity"]) {
-    document.getElementById("pixelArtDensity").value =
-      settings["pixelArtDensity"];
-  }
-  if (settings["pixelArtColorDark"]) {
-    document.getElementById("pixelArtColorDark").value =
-      settings["pixelArtColorDark"];
-  }
-  if (settings["pixelArtColorLight"]) {
-    document.getElementById("pixelArtColorLight").value =
-      settings["pixelArtColorLight"];
-  }
   if (settings["customCSS"]) {
     document.getElementById("custom-css").value = settings["customCSS"];
   }
@@ -100,45 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const bgAddLabel = document.getElementById("background-add-label");
   const clearBgButton = document.getElementById("clear-background-image");
-  const useUnsplashCheckbox = document.getElementById("use-unsplash");
-  if (settings.useUnsplash) {
-    useUnsplashCheckbox.checked = true;
-    document.getElementById("unsplash-options").style.display = "block";
-  } else {
-    document.getElementById("unsplash-options").style.display = "none";
-  }
-
-  document.getElementById("unsplash-api-key").value =
-    settings.unsplashApiKey || "";
-  const unsplashApiKeyInput = document.getElementById("unsplash-api-key");
-  const unsplashUpdateFrequencySelect = document.getElementById(
-    "unsplash-update-frequency",
-  );
-  const showUnsplashRefreshCheckbox = document.getElementById(
-    "show-unsplash-refresh",
-  );
-
-  function toggleUnsplashAdvancedOptions() {
-    const hasApiKey = unsplashApiKeyInput.value.trim() !== "";
-    const tooltipWrappers = document.querySelectorAll(
-      "#unsplash-options .tooltip-wrapper",
-    );
-
-    unsplashUpdateFrequencySelect.disabled = !hasApiKey;
-    showUnsplashRefreshCheckbox.disabled = !hasApiKey;
-    if (!hasApiKey) {
-      showUnsplashRefreshCheckbox.checked = false;
-      tooltipWrappers.forEach((wrapper) => wrapper.classList.add("disabled"));
-    } else {
-      tooltipWrappers.forEach((wrapper) =>
-        wrapper.classList.remove("disabled"),
-      );
-    }
-  }
-  toggleUnsplashAdvancedOptions(); // Initial check
-  document.getElementById("unsplash-update-frequency").value =
-    settings.unsplashUpdateFrequency || "daily";
-  showUnsplashRefreshCheckbox.checked = settings.showUnsplashRefresh || false;
 
   // Populate About panel: logo and version + links
   try {
@@ -173,8 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((r) => r.json())
         .then((m) => {
           if (m && m.version)
-            document.getElementById("extension-version").textContent =
-              m.version;
+            document.getElementById("extension-version").textContent = m.version;
         });
     } catch (ignored) {
       document.getElementById("extension-version").textContent = "Unknown";
@@ -196,8 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
     bgAddLabel.classList.remove("hidden");
     clearBgButton.classList.add("hidden");
   }
-
-
 
   if (settings.topRightOrder) {
     let tbody = document.querySelector("table#top-right-links tbody");
@@ -270,24 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelectorAll("tr")
     .forEach((row) => row.setAttribute("draggable", "true"));
 
-  const selectElem = document.querySelector(
-    "#bookmark-folder-selector-span select",
-  );
 
-  const allOption = document.createElement("option");
-  allOption.value = "";
-  allOption.text = "All";
-  allOption.selected = !settings["bookmarkFolder"];
-  selectElem.append(allOption);
-
-  chrome.bookmarks.getTree((tree) => {
-    tree[0].children.forEach((folder) => {
-      const optionElem = document.createElement("option");
-      optionElem.value = optionElem.text = folder.title;
-      optionElem.selected = settings["bookmarkFolder"] === folder.title;
-      selectElem.append(optionElem);
-    });
-  });
 
   // Back link navigation
   document.getElementById("back-link").addEventListener("click", () => {
@@ -327,32 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
           settings_obj["topRightOrder"] = orderArr;
           break;
 
-        case "bookmarkFolder":
-          settings_obj[key] = document.querySelector(
-            "#bookmark-folder-selector-span select",
-          ).value;
-          break;
-
-        case "expandBookmarks":
-          settings_obj[key] =
-            document.getElementById("expand-bookmarks").checked;
-          break;
-
-        case "selectedPixelArt":
-          settings_obj[key] = document.querySelector("#pixel-art-select").value;
-          break;
-
-        case "customSVG":
-          settings_obj[key] = document.querySelector("#custom-svg-input").value;
-          break;
-
-        case "pixelArtOpacity":
-        case "pixelArtDensity":
-        case "pixelArtColorDark":
-        case "pixelArtColorLight":
-          settings_obj[key] = document.getElementById(key).value;
-          break;
-
         case "theme":
           const selectedTheme = document.querySelector(
             'input[name="theme"]:checked',
@@ -362,32 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         case "backgroundImage":
           settings_obj[key] = settings.backgroundImage || "";
-          break;
-
-        case "useUnsplash":
-          settings_obj[key] = document.getElementById("use-unsplash").checked;
-          if (settings_obj[key]) {
-            settings_obj["backgroundImage"] = "";
-          }
-          break;
-
-        case "unsplashApiKey":
-          settings_obj[key] = document
-            .getElementById("unsplash-api-key")
-            .value.trim();
-          break;
-
-        case "unsplashUpdateFrequency":
-          settings_obj[key] = document.getElementById(
-            "unsplash-update-frequency",
-          ).value;
-          localStorage.removeItem("unsplashData");
-          break;
-
-        case "showUnsplashRefresh":
-          settings_obj[key] = document.getElementById(
-            "show-unsplash-refresh",
-          ).checked;
           break;
 
         case "customCSS":
@@ -407,22 +243,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     localStorage.setItem("settings", JSON.stringify(settings_obj));
-    if (settings_obj.useUnsplash) {
-      localStorage.removeItem("unsplashData");
-    }
+
     // Navigate to new tab with a pending notification
     localStorage.setItem("pendingNotification", "Settings Saved!");
     chrome.tabs.update({ url: "chrome://newtab" });
-  });
-
-
-  unsplashApiKeyInput.addEventListener("input", toggleUnsplashAdvancedOptions);
-
-  document.getElementById("use-unsplash").addEventListener("change", (e) => {
-    document.getElementById("unsplash-options").style.display = e.target.checked
-      ? "block"
-      : "none";
-    toggleUnsplashAdvancedOptions();
   });
 
   const navLinks = document.querySelectorAll(".options-sidebar nav a");
@@ -487,7 +311,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
 document.getElementById("restore-defaults").addEventListener("click", () => {
   localStorage.removeItem("settings");
   localStorage.setItem("settings", JSON.stringify(defaultSettings));
@@ -497,11 +320,7 @@ document.getElementById("restore-defaults").addEventListener("click", () => {
   chrome.tabs.update({ url: "chrome://newtab" });
 });
 
-document.getElementById("show-bookmarks").onchange = (e) => {
-  document
-    .querySelector("#bookmark-folder-selector-span")
-    .classList.toggle("disabled", !e.target.checked);
-};
+
 
 document.getElementById("show-topRight").onchange = (e) => {
   document
@@ -509,37 +328,24 @@ document.getElementById("show-topRight").onchange = (e) => {
     .classList.toggle("disabled", !e.target.checked);
 };
 
-document.getElementById("show-pixelArt").onchange = (e) => {
-  document
-    .querySelector("#pixel-art-select-div")
-    .classList.toggle("disabled", !e.target.checked);
-};
-
-document.getElementById("pixel-art-select").onchange = (e) => {
-  let selectedPixelArt = e.target.value;
-  if (selectedPixelArt == "custom") {
-    document.getElementById("custom-svg-input-div").style.display = "block";
-  } else {
-    document.getElementById("custom-svg-input-div").style.display = "none";
-  }
-};
-
-
-
 let theme = localStorage.getItem("theme") || "system";
 
 function applyTheme(theme) {
   document.body.classList.remove("dark", "light");
-  if (theme === "dark") {
-    document.body.classList.add("dark");
-  } else if (theme === "light") {
-    document.body.classList.add("light");
-  } else {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  switch (theme) {
+    case "dark":
       document.body.classList.add("dark");
-    } else {
+      break;
+    case "light":
       document.body.classList.add("light");
-    }
+      break;
+    default:
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.body.classList.add("dark");
+      } else {
+        document.body.classList.add("light");
+      }
+      break;
   }
 }
 
@@ -584,40 +390,6 @@ window
     }
   });
 
-// Easter egg: clicking on the app icon or title 10 times redirects to YouTube
-(function () {
-  const CLICK_TARGET = 10;
-  let clickCount = 0;
-  const logo = document.getElementById("about-logo");
-  const title = document.getElementById("about-title");
-
-  function incrementAndMaybeRedirect() {
-    clickCount++;
-    if (clickCount >= CLICK_TARGET) {
-      // Open YouTube (navigate current tab) as the easter egg destination
-      chrome.tabs.create({
-        url: "https://music.youtube.com/playlist?list=PLK_7F5FZ-_UQvmcztt2X7qMYOSGIH31Hc&si=BwTs_LOMzIQskPP7",
-      });
-      // try {
-      //     window.location.href = 'https://www.youtube.com/';
-      // } catch (e) {
-      //     window.open('https://www.youtube.com/', '_blank');
-
-      // }
-    }
-  }
-
-  [logo, title].forEach((el) => {
-    if (!el) return;
-    el.addEventListener("click", incrementAndMaybeRedirect);
-    el.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        incrementAndMaybeRedirect();
-      }
-    });
-  });
-})();
 
 // Export settings to JSON file
 document.getElementById("export-settings").addEventListener("click", () => {

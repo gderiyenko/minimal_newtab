@@ -7,21 +7,6 @@ function updateClock() {
   document.getElementById("clock").textContent = `${hours}:${mins}`;
 }
 
-function displayPhotoCredit(photoData) {
-  const creditContainer = document.getElementById("photo-credit");
-  const creditLink = document.getElementById("photo-credit-link");
-
-  if (photoData && photoData.user) {
-    creditLink.href =
-      photoData.user.links.html +
-      "?utm_source=minimal_new_tab&utm_medium=referral";
-    creditLink.textContent = photoData.user.name;
-    creditContainer.style.display = "block";
-  } else {
-    creditContainer.style.display = "none";
-  }
-}
-
 function analyzeAndSetTextColor(imageUrl) {
   const img = new Image();
   img.crossOrigin = "Anonymous";
@@ -57,107 +42,16 @@ function analyzeAndSetTextColor(imageUrl) {
   };
 }
 
-async function setUnsplashBackground(forceRefresh = false) {
-  const now = new Date();
-  const cachedData = localStorage.getItem("unsplashData");
-  const userApiKey = settings.unsplashApiKey;
-
-  let currentTheme = localStorage.getItem("theme") || "system";
-  let themeQuery = "";
-  if (currentTheme === "system") {
-    currentTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  }
-  if (currentTheme === "dark") {
-    themeQuery = ",dark";
-  }
-
-  const frequencyMap = {
-    "15min": 15 * 60 * 1000,
-    "30min": 30 * 60 * 1000,
-    hourly: 60 * 60 * 1000,
-    daily: 24 * 60 * 60 * 1000,
-    weekly: 7 * 24 * 60 * 60 * 1000,
-  };
-  const updateFrequency =
-    frequencyMap[settings.unsplashUpdateFrequency] || frequencyMap["daily"];
-
-  if (userApiKey && settings.showUnsplashRefresh) {
-    document.getElementById("refresh-background").style.display = "inline-flex";
-  }
-
-  if (cachedData && !forceRefresh) {
-    const { timestamp, photo } = JSON.parse(cachedData);
-    if (now - new Date(timestamp) < updateFrequency) {
-      const img = new Image();
-      img.onload = () => {
-        document.body.style.backgroundImage = `url(${photo.urls.full})`;
-        analyzeAndSetTextColor(photo.urls.full);
-      };
-      img.src = photo.urls.full;
-      displayPhotoCredit(photo);
-      return;
-    }
-  }
-
-  if (!userApiKey) {
-    console.error(
-      "Unsplash API key is missing. Please add it in the options page.",
-    );
-    const creditContainer = document.getElementById("photo-credit");
-    creditContainer.style.display = "block";
-    creditContainer.innerHTML =
-      "Unsplash background requires an API key in settings.";
-    return;
-  }
-
-  try {
-    let apiUrl;
-    if (userApiKey) {
-      const cacheBust = new Date().getTime();
-      apiUrl = `https://api.unsplash.com/photos/random?query=wallpapers${themeQuery}&orientation=landscape&client_id=${userApiKey}&cache_bust=${cacheBust}`;
-    }
-    const response = await fetch(apiUrl);
-    if (response.ok) {
-      const newPhoto = await response.json();
-      const img = new Image();
-      img.onload = () => {
-        document.body.style.backgroundImage = `url(${newPhoto.urls.full})`;
-        analyzeAndSetTextColor(newPhoto.urls.full);
-        localStorage.setItem(
-          "unsplashData",
-          JSON.stringify({
-            timestamp: now.toISOString(),
-            photo: newPhoto,
-          }),
-        );
-        displayPhotoCredit(newPhoto);
-      };
-      img.src = newPhoto.urls.full;
-    } else if (response.status === 429) {
-      console.warn(
-        "Unsplash background refresh rate-limited. Please wait before trying again.",
-      );
-    }
-  } catch (error) {
-    console.error("Failed to fetch Unsplash background:", error);
-  }
-}
-
 function applyTheme(theme) {
-  document.body.classList.remove("dark", "light");
-  if (theme === "dark") {
-    document.body.classList.add("dark");
-  } else if (theme === "light") {
-    document.body.classList.add("light");
-  } else {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.add("light");
-    }
+
+  document.body.classList.remove("dark", "light", "system");
+
+  if (theme === "system") {
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? document.body.classList.add("dark")
+      : document.body.classList.add("light");
   }
+  document.body.classList.add(theme);
 
   const iconContainer = document.querySelector(".theme-icon");
   const label = document.querySelector(".theme-label");
@@ -165,14 +59,15 @@ function applyTheme(theme) {
   label.textContent = theme[0].toUpperCase() + theme.slice(1);
 
   const customizeContainer = document.querySelector(".customize-icon");
-  if (theme == "system") {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      customizeContainer.innerHTML = customizeIcon["dark"];
-    } else {
-      customizeContainer.innerHTML = customizeIcon["light"];
-    }
-  } else {
-    customizeContainer.innerHTML = customizeIcon[theme];
+  switch (theme) {
+    case "system":
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? customizeContainer.innerHTML = customizeIcon["dark"]
+        : customizeContainer.innerHTML = customizeIcon["light"];
+      break;
+    default:
+      customizeContainer.innerHTML = customizeIcon[theme];
+      break;
   }
 }
 
@@ -200,14 +95,10 @@ function renderBookmarks(nodes, container, level = 0, path = "") {
       const childrenList = document.createElement("ul");
       childrenList.className = "bookmark-children";
 
-      const isOpen = settings.expandBookmarks
-        ? true
-        : localStorage.getItem(currentPath) === "true";
-      if (isOpen) {
-        chevron.textContent = "▼";
-      } else {
-        childrenList.classList.add("collapsed");
-      }
+      // Bookmarks folder: [open / closed]
+      localStorage.getItem(currentPath) === "true"
+        ? (chevron.textContent = "▼")
+        : childrenList.classList.add("collapsed");
 
       folderButton.addEventListener("click", () => {
         const isCollapsed = childrenList.classList.contains("collapsed");
@@ -257,14 +148,10 @@ if (settings.customCSS) {
   document.head.appendChild(styleElement);
 }
 
-if (settings.useUnsplash) {
-  setUnsplashBackground();
-} else if (settings.backgroundImage) {
+if (settings.backgroundImage) {
   document.body.style.backgroundImage = `url(${settings.backgroundImage})`;
   analyzeAndSetTextColor(settings.backgroundImage);
-}
 
-if (settings.useUnsplash || settings.backgroundImage) {
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundPosition = "center";
 }
@@ -327,14 +214,6 @@ if (settings.topRight) {
   document.getElementById("top-right").style.display = "none";
 }
 
-
-if (settings.unsplashApiKey && settings.showUnsplashRefresh) {
-  document
-    .getElementById("refresh-background")
-    .addEventListener("click", () => {
-      setUnsplashBackground(true);
-    });
-}
 const icons = {
   system: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"> <defs> <linearGradient id="half"> <stop offset="50%" stop-color="white" /> <stop offset="50%" stop-color="black" /> </linearGradient> </defs> <circle cx="24" cy="24" r="10" fill="url(#half)" stroke="currentColor" stroke-width="2"/> <line x1="24" y1="2" x2="24" y2="10" stroke="currentColor" stroke-width="2"/> <line x1="24" y1="38" x2="24" y2="46" stroke="currentColor" stroke-width="2"/> <line x1="2" y1="24" x2="10" y2="24" stroke="currentColor" stroke-width="2"/> <line x1="38" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="2"/> <line x1="8.5" y1="8.5" x2="14.5" y2="14.5" stroke="currentColor" stroke-width="2"/> <line x1="33.5" y1="33.5" x2="39.5" y2="39.5" stroke="currentColor" stroke-width="2"/> <line x1="8.5" y1="39.5" x2="14.5" y2="33.5" stroke="currentColor" stroke-width="2"/> <line x1="33.5" y1="14.5" x2="39.5" y2="8.5" stroke="currentColor" stroke-width="2"/> </svg>`,
   dark: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <path fill="none" stroke="white" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 1 0 9.79 9.79Z"/> </svg>`,
@@ -355,27 +234,19 @@ let theme = localStorage.getItem("theme") || "system";
 applyTheme(theme);
 
 // Handle toggle click
+const toogleOrder = ["system", "dark", "light"];
 document.querySelector(".theme-toggle").addEventListener("click", () => {
-  if (theme === "system") {
-    theme = "dark";
-  } else if (theme === "dark") {
-    theme = "light";
-  } else {
-    theme = "system";
-  }
-
+  theme = toogleOrder[(toogleOrder.indexOf(theme) + 1) % toogleOrder.length];
   localStorage.setItem("theme", theme);
   applyTheme(theme);
 });
 
 // React to system theme change if in system mode
-window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", (e) => {
-    if (theme === "system") {
-      applyTheme("system");
-    }
-  });
+if (theme === "system") {
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => applyTheme("system"));
+}
 
 // On page initialization, check for pending notification
 const pendingNotification = localStorage.getItem("pendingNotification");
