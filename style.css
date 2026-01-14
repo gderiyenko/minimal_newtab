@@ -26,16 +26,19 @@ body {
 
 body.dark {
     background: #121212;
-    color: #f0f0f0; /* Restore default dark theme text color */
+    color: #f0f0f0;
+    /* Restore default dark theme text color */
 }
 
 body.light {
     background: #ffffff;
-    color: #222; /* Restore default light theme text color */
+    color: #222;
+    /* Restore default light theme text color */
 }
 
 body {
-    background-color: transparent; /* Allow background image to show */
+    background-color: transparent;
+    /* Allow background image to show */
 }
 
 .clock {
@@ -59,31 +62,115 @@ body {
     padding-bottom: 12rem;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    scrollbar-width: none;
+    /* Hide scrollbar in Firefox */
 }
 
 .shortcuts::-webkit-scrollbar {
-    display: none; /* Hide scrollbar in WebKit browsers */
+    display: none;
+    /* Hide scrollbar in WebKit browsers */
 }
 
 .bookmark-list {
-    padding-left: 14px;
-    padding-right: 24px;
+    padding: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    color: #e6e6e6;
 }
 
 .bookmark-list,
 .bookmark-children {
     list-style: none;
     margin: 0;
+    padding: 0;
     width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+}
+
+.bookmark-children {
+    padding-left: 20px;
+    margin-top: 2px;
 }
 
 .bookmark-folder-item,
 .bookmark-link-item {
     width: 100%;
     box-sizing: border-box;
+    margin-bottom: 1px;
+}
+
+.bookmark-folder {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #e6e6e6;
+    font-size: 13px;
+    font-family: inherit;
+    text-align: left;
+    transition: background-color 0.1s ease;
+}
+
+.bookmark-folder:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.bookmark-folder:active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.bookmark-link-item a,
+.bookmark-link-item button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: black;
+    font-size: 13px;
+    font-family: inherit;
+    text-align: left;
+    text-decoration: none;
+    transition: background-color 0.1s ease;
+    border: 2px solid transparent;
+}
+
+.bookmark-link-item a:focus,
+.bookmark-link-item button:focus,
+.bookmark-link-item a:hover,
+.bookmark-link-item button:hover {
+    outline: none;
+    color: rgb(69, 69, 69);
+    border: 2px solid rgb(135, 135, 135);
+    border-radius: 6px;
+}
+
+.chevron {
+    width: 12px;
+    height: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    transition: transform 0.2s ease;
+}
+
+/* Rotate chevron when folder is collapsed */
+.bookmark-folder.collapsed .chevron {
+    transform: rotate(-90deg);
+}
+
+/* Optional: Add subtle separators between groups */
+.bookmark-folder-item+.bookmark-folder-item {
+    margin-top: 8px;
 }
 
 .shortcut {
@@ -104,7 +191,7 @@ body {
 }
 
 .shortcut:hover {
-    color: #0077cc;
+    color: #c3c3c3;
     transform: translateX(2px);
 }
 
@@ -138,8 +225,10 @@ body {
     overflow-wrap: anywhere;
 }
 
-.bookmark-folder:hover {
-    color: #0077cc;
+.bookmark-folder:hover,
+.bookmark-folder:focus {
+    outline: none;
+    color: #c3c3c3;
 }
 
 .bookmark-children {
@@ -155,24 +244,36 @@ body {
 }
 
 .top-right {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
     display: flex;
-    gap: 1rem;
-    font-size: 0.95rem;
+    gap: 4px;
+    font-size: 13px;
+    padding: 8px;
 }
 
 .top-right span {
-    text-transform: capitalize;
-    text-decoration: underline dotted;
-    text-underline-offset: 2px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #343434;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: all 0.12s ease;
+    font-weight: 500;
+    text-transform: capitalize;
 }
 
 .top-right span:hover {
-    color: #0077cc;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #717070;
+}
+
+.top-right span:active {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.top-right span:focus {
+    outline: none;
+    background-color: #ff6363;
+    color: white;
 }
 
 .theme-toggle {
@@ -257,7 +358,7 @@ body {
     position: relative;
 }
 
-.tooltip-wrapper.disabled > * {
+.tooltip-wrapper.disabled>* {
     opacity: 0.5;
     pointer-events: none;
 }
@@ -281,6 +382,7 @@ body.light .tooltip-wrapper.disabled:hover::after {
     background-color: #eee;
     color: #333;
 }
+
 /* Custom tooltip for tooltip-wrapper when not disabled */
 .tooltip-wrapper:hover::after {
     content: attr(data-tooltip);
@@ -303,6 +405,7 @@ body.light .tooltip-wrapper:hover::after {
     color: #222;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
+
 .photo-credit {
     position: absolute;
     bottom: 1rem;
@@ -323,7 +426,8 @@ body.light .tooltip-wrapper:hover::after {
 }
 
 .refresh-background {
-    display: inline-flex; /* Changed from flex */
+    display: inline-flex;
+    /* Changed from flex */
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -436,11 +540,13 @@ body.light #options-wrapper {
     display: flex;
     align-items: center;
     margin-bottom: 0.8em;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next line */
 }
 
 .options-table .checkbox-label {
-    margin-bottom: 0; /* Override default margin for table rows */
+    margin-bottom: 0;
+    /* Override default margin for table rows */
     justify-content: center;
 }
 
@@ -457,7 +563,8 @@ body.light #options-wrapper {
 }
 
 .checkbox-label input {
-    display: none; /* Hide the default checkbox */
+    display: none;
+    /* Hide the default checkbox */
 }
 
 .checkbox-label .custom-checkbox {
@@ -475,12 +582,12 @@ body.light #options-wrapper {
     border-color: rgba(128, 128, 128, 0.8);
 }
 
-.checkbox-label input:checked + .custom-checkbox {
+.checkbox-label input:checked+.custom-checkbox {
     background-color: var(--color-accent);
     border-color: var(--color-accent);
 }
 
-.checkbox-label input:checked + .custom-checkbox::after {
+.checkbox-label input:checked+.custom-checkbox::after {
     content: "";
     position: absolute;
     left: 5px;
@@ -492,7 +599,7 @@ body.light #options-wrapper {
     transform: rotate(45deg);
 }
 
-body.light .checkbox-label input:checked + .custom-checkbox::after {
+body.light .checkbox-label input:checked+.custom-checkbox::after {
     border-color: white;
 }
 
@@ -731,7 +838,7 @@ body.light .options-sidebar nav a.active {
 }
 
 .options-content a:hover {
-    color: #0077cc;
+    color: #c3c3c3;
 }
 
 .options-table button {
@@ -760,16 +867,15 @@ body.light .options-sidebar nav a.active {
 }
 
 body.light .button-group {
-    background: linear-gradient(
-        to top,
-        rgba(255, 255, 255, 1) 80%,
-        rgba(255, 255, 255, 0)
-    );
+    background: linear-gradient(to top,
+            rgba(255, 255, 255, 1) 80%,
+            rgba(255, 255, 255, 0));
     border-top-color: rgba(0, 0, 0, 0.08);
 }
 
 .background-image-controls {
-    margin: 0.5em 0 0 2em; /* Top margin, no side margin, bottom margin, left indent */
+    margin: 0.5em 0 0 2em;
+    /* Top margin, no side margin, bottom margin, left indent */
     display: flex;
     align-items: center;
     gap: 10px;
@@ -782,9 +888,11 @@ body.light .button-group {
 .background-preview-container {
     position: relative;
     width: 100px;
-    height: 56px; /* 16:9 aspect ratio */
+    height: 56px;
+    /* 16:9 aspect ratio */
     border: 1px solid #555;
-    border-radius: 12px; /* More rounded for a squircle look */
+    border-radius: 12px;
+    /* More rounded for a squircle look */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1166,11 +1274,13 @@ body.light {
 }
 
 #notification.success {
-    background-color: #4caf50; /* Green */
+    background-color: #4caf50;
+    /* Green */
 }
 
 #notification.restore {
-    background-color: #f44336; /* Red */
+    background-color: #f44336;
+    /* Red */
 }
 
 #notification.show {
@@ -1193,6 +1303,7 @@ body.light {
     font-size: 1.2rem;
     color: white;
 }
+
 /* Segmented Control for Radio Buttons */
 .segmented-control-container {
     justify-content: space-between;
@@ -1228,7 +1339,7 @@ body.light .segmented-control {
     display: none;
 }
 
-.segmented-control input[type="radio"]:checked + span {
+.segmented-control input[type="radio"]:checked+span {
     color: white;
 }
 
@@ -1252,7 +1363,8 @@ body.light .segmented-control label:has(input:checked) {
     -webkit-backdrop-filter: blur(10px);
     transition: transform 0.3s ease-in-out;
     z-index: 10;
-    display: none; /* Hidden by default, enabled via JS */
+    display: none;
+    /* Hidden by default, enabled via JS */
 }
 
 body.light .sidebar {
@@ -1404,8 +1516,10 @@ body.light .sidebar-customize-btn {
     padding: 6px 8px;
     width: auto;
     height: auto;
-    background: transparent; /* blend with page */
-    border: 1px solid rgba(255, 255, 255, 0.14); /* white-ish border for dark mode */
+    background: transparent;
+    /* blend with page */
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    /* white-ish border for dark mode */
     border-radius: 6px;
     transition:
         transform 0.08s ease,
@@ -1413,7 +1527,8 @@ body.light .sidebar-customize-btn {
 }
 
 .about-links .icon-link img {
-    height: 36px; /* official badge height */
+    height: 36px;
+    /* official badge height */
     width: auto;
     display: block;
 }

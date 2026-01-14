@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Minimal New Tab",
-  "description": "A minimal, new tab page with clock, weather, and bookmarks with theme support",
-  "version": "1.4.3",
+  "name": "Blank Tab",
+  "description": "A peaceful new tab that centers time, essentials, and clarity.",
+  "version": "1.0.0",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
