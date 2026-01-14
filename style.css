@@ -75,7 +75,7 @@ body {
     padding: 8px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     font-size: 13px;
-    color: #e6e6e6;
+    color: inherit;
 }
 
 .bookmark-list,
@@ -93,26 +93,9 @@ body {
 
 .bookmark-folder-item,
 .bookmark-link-item {
-    width: 100%;
+    width: fit-content;
     box-sizing: border-box;
     margin-bottom: 1px;
-}
-
-.bookmark-folder {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    color: #e6e6e6;
-    font-size: 13px;
-    font-family: inherit;
-    text-align: left;
-    transition: background-color 0.1s ease;
 }
 
 .bookmark-folder:hover {
@@ -121,6 +104,15 @@ body {
 
 .bookmark-folder:active {
     background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Light mode overrides for folder */
+body.light .bookmark-folder:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light .bookmark-folder:active {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .bookmark-link-item a,
@@ -134,7 +126,7 @@ body {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    color: black;
+    color: inherit;
     font-size: 13px;
     font-family: inherit;
     text-align: left;
@@ -143,7 +135,14 @@ body {
     border: 2px solid transparent;
 }
 
-.bookmark-link-item a:focus,
+/* Light mode overrides for links */
+body.light .bookmark-link-item a:hover,
+body.light .bookmark-link-item button:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+    border-color: transparent;
+}
+
+/* .bookmark-link-item a:focus,
 .bookmark-link-item button:focus,
 .bookmark-link-item a:hover,
 .bookmark-link-item button:hover {
@@ -151,7 +150,7 @@ body {
     color: rgb(69, 69, 69);
     border: 2px solid rgb(135, 135, 135);
     border-radius: 6px;
-}
+} */
 
 .chevron {
     width: 12px;
@@ -202,15 +201,19 @@ body {
     color: inherit;
     user-select: none;
     display: flex;
-    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    align-items: center;
+    gap: 8px;
     width: 100%;
     background: transparent;
     border: none;
+    border-radius: 6px;
     text-align: left;
-    padding: 0.2rem 0;
-    font: inherit;
+    padding: 6px 10px;
+    padding-right: 5px !important;
+    font-size: 13px;
+    font-family: inherit;
+    transition: background-color 0.1s ease;
 }
 
 .bookmark-folder .chevron,
@@ -227,7 +230,7 @@ body {
 
 .bookmark-folder:hover,
 .bookmark-folder:focus {
-    outline: none;
+    /* outline: none; */
     color: #c3c3c3;
 }
 
