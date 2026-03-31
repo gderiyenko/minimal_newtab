@@ -8,124 +8,145 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="options">
-    <div id="notification" class="hidden"></div>
+<body class="flex items-center justify-center text-left py-8 m-0 text-base box-border overflow-x-hidden">
+    <div id="notification" class="fixed top-5 right-5 text-white p-[15px] rounded-[5px] z-[1000] opacity-0 transition-opacity duration-150 hidden"></div>
 
-    <div id="options-wrapper">
-        <div id="back">
+    <div id="options-wrapper" class="relative max-w-[900px] h-[80vh] w-[calc(100%-2rem)] mx-auto box-border bg-[#1e1e1e]/95 backdrop-blur-[20px] rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.05)_inset] flex overflow-hidden dark:bg-[#1e1e1e]/95 dark:border-white/10 light:bg-white/95 light:border-black/10 light:shadow-[0_8px_32px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.03)_inset]">
+        <div id="back" class="absolute top-3 right-3 text-[2em] leading-none z-10 opacity-50 transition-all duration-150 w-10 h-10 flex items-center justify-center rounded-lg hover:cursor-pointer hover:opacity-100 hover:bg-gray-500/20">
             <span id="back-link">×</span>
         </div>
-        <div class="options-sidebar">
-            <h1>Settings</h1>
-            <nav>
-                <a href="#general" class="active">General</a>
-                <a href="#shortcuts">Shortcuts</a>
-                    <a href="#preset">Backup</a>
-                    <a href="#about">About</a>
+        <div class="w-[200px] p-6 bg-black/15 border-right border-gray-500/10 shrink-0 light:bg-black/[0.03]">
+            <h1 class="m-0 mb-6 text-[1.4em] font-semibold tracking-tight opacity-90 border-none pb-0">Settings</h1>
+            <nav class="flex flex-col gap-1">
+                <a href="#general" class="no-underline text-inherit py-[0.6em] px-[0.9em] rounded-lg transition-all duration-150 text-[0.95em] opacity-70 hover:bg-gray-500/15 hover:opacity-100 active:bg-gray-500/25 active:font-semibold active:opacity-100 [&.active]:bg-gray-500/25 [&.active]:font-semibold [&.active]:opacity-100 light:[&.active]:bg-black/[0.08]">General</a>
+                <a href="#shortcuts" class="no-underline text-inherit py-[0.6em] px-[0.9em] rounded-lg transition-all duration-150 text-[0.95em] opacity-70 hover:bg-gray-500/15 hover:opacity-100 active:bg-gray-500/25 active:font-semibold active:opacity-100 [&.active]:bg-gray-500/25 [&.active]:font-semibold [&.active]:opacity-100 light:[&.active]:bg-black/[0.08]">Shortcuts</a>
+                <a href="#preset" class="no-underline text-inherit py-[0.6em] px-[0.9em] rounded-lg transition-all duration-150 text-[0.95em] opacity-70 hover:bg-gray-500/15 hover:opacity-100 active:bg-gray-500/25 active:font-semibold active:opacity-100 [&.active]:bg-gray-500/25 [&.active]:font-semibold [&.active]:opacity-100 light:[&.active]:bg-black/[0.08]">Backup</a>
+                <a href="#about" class="no-underline text-inherit py-[0.6em] px-[0.9em] rounded-lg transition-all duration-150 text-[0.95em] opacity-70 hover:bg-gray-500/15 hover:opacity-100 active:bg-gray-500/25 active:font-semibold active:opacity-100 [&.active]:bg-gray-500/25 [&.active]:font-semibold [&.active]:opacity-100 light:[&.active]:bg-black/[0.08]">About</a>
             </nav>
         </div>
-        <div class="options-content">
+        <div class="grow p-6 px-8 pb-0 overflow-y-auto relative flex flex-col scrollbar-thin scrollbar-thumb-gray-500/30 scrollbar-track-transparent">
             <div id="general" class="options-panel active">
-                <h2>General Components</h2>
-                <label class="checkbox-label"><input type="checkbox" id="show-clock"><span class="custom-checkbox"></span> Show Clock</label>
-                <label class="checkbox-label"><input type="checkbox" id="show-bookmarks"><span class="custom-checkbox"></span> Show Bookmarks</label>
+                <h2 class="mt-0 mb-[1.2em] text-[1.1em] font-semibold tracking-tight opacity-85 border-none pb-0">General Components</h2>
+                <label class="flex items-center cursor-pointer text-base mb-[0.8em] select-none group">
+                    <input type="checkbox" id="show-clock" class="hidden peer">
+                    <span class="w-[18px] h-[18px] border-2 border-gray-500/50 rounded-[5px] mr-3 inline-block relative transition-all duration-150 group-hover:border-gray-500/80 peer-checked:bg-accent peer-checked:border-accent after:content-[''] after:absolute after:left-[5px] after:top-[2px] after:w-[4px] after:h-[8px] after:border-solid after:border-[#1c1c1c] after:border-t-0 after:border-l-0 after:border-r-2 after:border-b-2 after:rotate-45 after:hidden peer-checked:after:block body-light:peer-checked:after:border-white"></span>
+                    Show Clock
+                </label>
+                <label class="flex items-center cursor-pointer text-base mb-[0.8em] select-none group">
+                    <input type="checkbox" id="show-bookmarks" class="hidden peer">
+                    <span class="w-[18px] h-[18px] border-2 border-gray-500/50 rounded-[5px] mr-3 inline-block relative transition-all duration-150 group-hover:border-gray-500/80 peer-checked:bg-accent peer-checked:border-accent after:content-[''] after:absolute after:left-[5px] after:top-[2px] after:w-[4px] after:h-[8px] after:border-solid after:border-[#1c1c1c] after:border-t-0 after:border-l-0 after:border-r-2 after:border-b-2 after:rotate-45 after:hidden peer-checked:after:block body-light:peer-checked:after:border-white"></span>
+                    Show Bookmarks
+                </label>
 
-                <div class="setting-row segmented-control-container">
+                <div class="flex items-center mb-[0.8em] flex-wrap justify-between mt-4">
                     <label>Theme:</label>
-                    <div class="segmented-control">
-                        <label><input type="radio" name="theme" value="system"><span>System</span></label>
-                        <label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
-                        <label><input type="radio" name="theme" value="light"><span>Light</span></label>
+                    <div class="flex bg-gray-500/15 rounded-lg p-[3px] gap-[2px] light:bg-black/5">
+                        <label class="inline-block py-[6px] px-4 cursor-pointer transition-all duration-150 relative rounded-md text-[0.95em] hover:bg-gray-500/15 has-[:checked]:bg-accent has-[:checked]:shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                            <input type="radio" name="theme" value="system" class="hidden">
+                            <span class="peer-checked:text-white body-light:has-[:checked]:text-[#f0f0f0]">System</span>
+                        </label>
+                        <label class="inline-block py-[6px] px-4 cursor-pointer transition-all duration-150 relative rounded-md text-[0.95em] hover:bg-gray-500/15 has-[:checked]:bg-accent has-[:checked]:shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                            <input type="radio" name="theme" value="dark" class="hidden">
+                            <span class="peer-checked:text-white body-light:has-[:checked]:text-[#f0f0f0]">Dark</span>
+                        </label>
+                        <label class="inline-block py-[6px] px-4 cursor-pointer transition-all duration-150 relative rounded-md text-[0.95em] hover:bg-gray-500/15 has-[:checked]:bg-accent has-[:checked]:shadow-[0_1px_3px_rgba(0,0,0,0.2)]">
+                            <input type="radio" name="theme" value="light" class="hidden">
+                            <span class="peer-checked:text-white body-light:has-[:checked]:text-[#f0f0f0]">Light</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="selector-label">
+                <div class="w-full flex justify-between items-center mt-6">
                     <label for="background-image-input">Custom Background Image:</label>
-                    <div class="background-image-controls">
-                        <label for="background-image-input" id="background-add-label" class="background-add-label">
-                            <div id="background-preview-container" class="background-preview-container">
-                                <span class="plus-icon">+</span>
+                    <div class="mt-2 ml-8 flex items-center gap-[10px]">
+                        <label for="background-image-input" id="background-add-label" class="cursor-pointer light:text-[#ccc] group">
+                            <div id="background-preview-container" class="relative w-[100px] h-[56px] border border-gray-500/50 rounded-xl flex items-center justify-center overflow-hidden text-[0.8em] text-gray-400 transition-colors duration-200 group-hover:border-gray-400">
+                                <span class="text-[3em] font-thin text-gray-500 leading-none">+</span>
                             </div>
                         </label>
-                        <div id="image-present-container" class="background-preview-container hidden">
-                            <img id="background-preview" src="#" alt="Background preview" class="hidden">
-                            <button id="clear-background-image" class="clear-background-button hidden">&times;</button>
+                        <div id="image-present-container" class="relative w-[100px] h-[56px] border border-gray-500/50 rounded-xl flex items-center justify-center overflow-hidden text-[0.8em] text-gray-400 transition-colors duration-200 group-hover:border-gray-400 hidden group">
+                            <img id="background-preview" src="#" alt="Background preview" class="w-full h-full object-cover hidden">
+                            <button id="clear-background-image" class="absolute top-[2px] right-[2px] w-5 h-5 bg-black/60 text-white border-none rounded-full flex items-center justify-center text-sm leading-none cursor-pointer opacity-0 transition-opacity duration-200 group-hover:opacity-100 hidden">&times;</button>
                         </div>
-                        <input type="file" id="background-image-input" class="visually-hidden" accept="image/*">
+                        <input type="file" id="background-image-input" class="absolute w-[1px] h-[1px] -m-[1px] p-0 overflow-hidden [clip:rect(0,0,0,0)] border-0" accept="image/*">
                     </div>
                 </div>
 
 
-                <div class="setting-row" style="margin-top: 2em;">
+                <div class="flex flex-col mb-[0.8em] flex-wrap mt-8">
                     <label for="custom-css">Custom CSS</label>
-                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 0.3em; margin-bottom: 0.8em;">Add your own CSS to customize the appearance of the new tab page. Changes apply after saving settings.</p>
-                    <textarea id="custom-css" rows="10" placeholder="/* Add your custom CSS here */" style="width: 100%; font-family: monospace; font-size: 0.9em;"></textarea>
-                    <p style="font-size: 0.8em; opacity: 0.7; margin-top: 0.5em;">Note: Invalid CSS may affect page styling. Use the "Restore Defaults" button if something breaks.</p>
+                    <p class="text-[0.9em] opacity-80 mt-[0.3em] mb-[0.8em]">Add your own CSS to customize the appearance of the new tab page. Changes apply after saving settings.</p>
+                    <textarea id="custom-css" rows="10" placeholder="/* Add your custom CSS here */" class="w-full p-[10px_14px] rounded-lg border border-gray-500/30 bg-black/20 text-[#f0f0f0] font-mono text-[0.9em] mt-2 box-border transition-all duration-150 focus:outline-none focus:border-gray-500/60 focus:bg-black/30 light:bg-black/[0.04] light:text-[#222] light:border-black/[0.12] light:focus:bg-black/[0.06] light:focus:border-black/25"></textarea>
+                    <p class="text-[0.8em] opacity-70 mt-2">Note: Invalid CSS may affect page styling. Use the "Restore Defaults" button if something breaks.</p>
                 </div>
             </div>
 
-            <div id="shortcuts" class="options-panel">
-                <h2>Shortcuts</h2>
-                <label class="checkbox-label"><input type="checkbox" id="show-topRight"><span class="custom-checkbox"></span>Show Top-Right Shortcuts</label>
-                <div id="shortcuts-links" class="sub-settings">
+            <div id="shortcuts" class="options-panel hidden">
+                <h2 class="mt-0 mb-[1.2em] text-[1.1em] font-semibold tracking-tight opacity-85 border-none pb-0">Shortcuts</h2>
+                <label class="flex items-center cursor-pointer text-base mb-[0.8em] select-none group">
+                    <input type="checkbox" id="show-topRight" class="hidden peer">
+                    <span class="w-[18px] h-[18px] border-2 border-gray-500/50 rounded-[5px] mr-3 inline-block relative transition-all duration-150 group-hover:border-gray-500/80 peer-checked:bg-accent peer-checked:border-accent after:content-[''] after:absolute after:left-[5px] after:top-[2px] after:w-[4px] after:h-[8px] after:border-solid after:border-[#1c1c1c] after:border-t-0 after:border-l-0 after:border-r-2 after:border-b-2 after:rotate-45 after:hidden peer-checked:after:block body-light:peer-checked:after:border-white"></span>
+                    Show Top-Right Shortcuts
+                </label>
+                <div id="shortcuts-links" class="ml-6 pl-4 border-l-2 border-gray-500/20 [&.disabled]:opacity-40 [&.disabled]:pointer-events-none [&.disabled]:select-none">
                     <p>Customize which shortcut links are displayed and in what order.</p>
-                    <table class="options-table" id="top-right-links">
+                    <table class="w-full capitalize border-separate border-spacing-y-1 mt-4 table-fixed" id="top-right-links">
                         <thead>
                             <tr>
-                                <th>Show</th>
-                                <th>Link</th>
-                                <th class="drag-handle-header">Order</th>
+                                <th class="p-[10px_12px] text-left text-[0.85em] font-medium uppercase tracking-widest opacity-60 pb-2 w-[50px]">Show</th>
+                                <th class="p-[10px_12px] text-left text-[0.85em] font-medium uppercase tracking-widest opacity-60 pb-2">Link</th>
+                                <th class="p-[10px_12px] text-[0.85em] font-medium uppercase tracking-widest opacity-60 pb-2 w-[80px] text-center">Order</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody class="[&_tr]:bg-gray-500/[0.08] [&_tr]:rounded-lg hover:[&_tr]:bg-gray-500/[0.15] [&_td:first-child]:rounded-l-lg [&_td:last-child]:rounded-r-lg"></tbody>
                     </table>
                 </div>
             </div>
 
-            <div id="preset" class="options-panel">
-                <h2>Backup</h2>
+            <div id="preset" class="options-panel hidden">
+                <h2 class="mt-0 mb-[1.2em] text-[1.1em] font-semibold tracking-tight opacity-85 border-none pb-0">Backup</h2>
                 <p>Export your current settings or import a previously saved configuration.</p>
-                <div class="settings-data-container">
-                    <div class="button-row">
-                        <button id="export-settings" class="ghost-button">Export Settings</button>
-                        <button id="import-settings" class="ghost-button">Import Settings</button>
-                        <input type="file" id="import-file" accept=".json" style="display:none;">
+                <div class="inline-flex flex-col items-stretch">
+                    <div class="flex gap-2 flex-wrap">
+                        <button id="export-settings" class="p-[10px_20px] border border-gray-500/50 rounded-lg cursor-pointer font-inherit text-[0.95em] font-medium transition-all duration-200 bg-transparent text-inherit hover:bg-[#f0f0f0] hover:border-[#f0f0f0] hover:text-[#222] hover:-translate-y-px active:translate-y-0 light:hover:bg-[#222] light:hover:border-[#222] light:hover:text-[#f0f0f0]">Export Settings</button>
+                        <button id="import-settings" class="p-[10px_20px] border border-gray-500/50 rounded-lg cursor-pointer font-inherit text-[0.95em] font-medium transition-all duration-200 bg-transparent text-inherit hover:bg-[#f0f0f0] hover:border-[#f0f0f0] hover:text-[#222] hover:-translate-y-px active:translate-y-0 light:hover:bg-[#222] light:hover:border-[#222] light:hover:text-[#f0f0f0] [&.drag-over]:bg-[#f0f0f0] [&.drag-over]:border-[#f0f0f0] [&.drag-over]:text-[#222] [&.drag-over]:border-dashed light:[&.drag-over]:bg-[#222] light:[&.drag-over]:border-[#222] light:[&.drag-over]:text-[#f0f0f0]">Import Settings</button>
+                        <input type="file" id="import-file" accept=".json" class="hidden">
                     </div>
-                    <div id="import-drop-zone" class="drop-zone">
-                        <span class="drop-zone-text">or drag & drop a settings file here</span>
+                    <div id="import-drop-zone" class="mt-[0.8em] p-4 border border-dashed border-gray-500/40 rounded-[4px] text-center transition-all duration-200 box-border [&.drag-over]:bg-gray-500/15 [&.drag-over]:border-[#f0f0f0] light:[&.drag-over]:border-[#222]">
+                        <span class="opacity-60 text-[0.9em] pointer-events-none">or drag & drop a settings file here</span>
                     </div>
                 </div>
             </div>
 
-            <div id="about" class="options-panel">
-                <h2>About</h2>
-                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
-                    <img id="about-logo" src="favicons/android-chrome-512x512.png" alt="Logo" style="width:72px;height:72px;border-radius:12px;box-shadow:0 4px 8px rgba(0,0,0,0.12);">
+            <div id="about" class="options-panel hidden">
+                <h2 class="mt-0 mb-[1.2em] text-[1.1em] font-semibold tracking-tight opacity-85 border-none pb-0">About</h2>
+                <div class="flex items-center gap-4 mb-4">
+                    <img id="about-logo" src="favicons/android-chrome-192x192.png" alt="Logo" class="w-[72px] h-[72px] rounded-xl shadow-[0_4px_8px_rgba(0,0,0,0.12)]">
                     <div>
-                        <div id="about-title" role="button" tabindex="0" style="font-weight:bold; font-size:1.1rem;">Minimal New Tab</div>
-                        <div style="opacity:0.8; margin-top:0.25rem;">Version <span id="extension-version">-</span></div>
+                        <div id="about-title" role="button" tabindex="0" class="font-bold text-[1.1rem]">Minimal New Tab</div>
+                        <div class="opacity-80 mt-1">Version <span id="extension-version">-</span></div>
                     </div>
                 </div>
 
                 <br>
-                <div class="about-links" style="margin-top:1rem; display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
-                    <div class="tooltip-wrapper" data-tooltip="View on Chrome Web Store">
-                        <a id="webstore-link" class="icon-link webstore-badge-link" href="https://chromewebstore.google.com/detail/minimal-new-tab/hdodpjlgcieifmkkidligdnonbfiijnd" target="_blank" rel="noopener noreferrer" aria-label="Chrome Web Store">
-                            <img id="webstore-img" src="favicons/chromewebstore-light.png" alt="Chrome Web Store" class="webstore-badge" />
+                <div class="about-links mt-4 flex gap-3 flex-wrap items-center">
+                    <div class="relative group" data-tooltip="View on Chrome Web Store">
+                        <a id="webstore-link" class="inline-flex items-center justify-center p-1.5 w-auto h-auto bg-transparent border border-white/15 rounded-md transition-all duration-100 hover:-translate-y-0.5 hover:opacity-95 light:border-black/15" href="https://chromewebstore.google.com/detail/minimal-new-tab/hdodpjlgcieifmkkidligdnonbfiijnd" target="_blank" rel="noopener noreferrer" aria-label="Chrome Web Store">
+                            <img id="webstore-img" src="favicons/chromewebstore-light.png" alt="Chrome Web Store" class="h-9 w-auto block rounded-md" />
                         </a>
                     </div>
-                    <div class="tooltip-wrapper" data-tooltip="View source on GitHub">
-                        <a id="github-link" class="icon-link" href="https://github.com/ujain1999/minimal_newtab" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                            <img id="github-img" src="favicons/github-light.png" alt="GitHub" />
+                    <div class="relative group" data-tooltip="View source on GitHub">
+                        <a id="github-link" class="inline-flex items-center justify-center p-[6px_8px] w-auto h-auto bg-transparent border border-white/15 rounded-md transition-all duration-100 hover:-translate-y-0.5 hover:opacity-95 light:border-black/15" href="https://github.com/ujain1999/minimal_newtab" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <img id="github-img" src="favicons/github-light.png" alt="GitHub" class="h-9 w-auto block" />
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="button-group">
-                <div class="button-row">
-                    <button id="save">Save Settings</button>
-                    <button id="restore-defaults">Restore Defaults</button>
+            <div class="mt-auto border-t border-gray-500/15 py-5 sticky bottom-0 flex flex-col gap-3 pt-8 light:bg-gradient-to-t light:from-white light:via-white/80 light:to-transparent light:border-black/[0.08]">
+                <div class="flex gap-2 flex-wrap">
+                    <button id="save" class="p-[10px_20px] border-none rounded-lg cursor-pointer font-inherit text-[0.95em] font-medium transition-all duration-150 bg-accent text-white hover:-translate-y-px hover:bg-black hover:shadow-[0_0_0_3px_rgba(0,0,0,0.3)] active:translate-y-0">Save Settings</button>
+                    <button id="restore-defaults" class="p-[10px_20px] border-2 border-[#3b3b3b] rounded-lg cursor-pointer font-inherit text-[0.95em] font-medium transition-all duration-150 bg-transparent text-[#3b3b3b] hover:-translate-y-px hover:text-accent hover:underline active:translate-y-0">Restore Defaults</button>
                 </div>
             </div>
         </div>

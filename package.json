@@ -1,0 +1,28 @@
+{
+  "name": "minimal_newtab",
+  "version": "1.0.0",
+  "description": "✨ A clean, minimal, customizable **New Tab page** for Chrome.",
+  "main": "main.js",
+  "scripts": {
+    "build": "tailwindcss -i ./input.css -o ./style.css",
+    "watch": "tailwindcss -i ./input.css -o ./style.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ujain1999/minimal_newtab.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ujain1999/minimal_newtab/issues"
+  },
+  "homepage": "https://github.com/ujain1999/minimal_newtab#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^3.4.17"
+  }
+}

@@ -109,21 +109,25 @@ document.addEventListener("DOMContentLoaded", () => {
     tbody.innerHTML = "";
     settings["topRightOrder"].map((item) => {
       let tr = document.createElement("tr");
+      tr.className = "cursor-grab";
       let td1 = document.createElement("td");
+      td1.className = "p-[10px_12px] text-left";
       let td1label = document.createElement("label");
-      td1label.className = "checkbox-label";
+      td1label.className = "flex items-center cursor-pointer text-base mb-0 select-none group justify-center";
       let td1check = document.createElement("input");
       td1check.type = "checkbox";
+      td1check.className = "hidden peer";
       td1check.setAttribute("data-key", item.id);
       td1check.checked = item.displayBool;
-      td1label.innerHTML = '<span class="custom-checkbox"></span>';
+      td1label.innerHTML = '<span class="w-[18px] h-[18px] border-2 border-gray-500/50 rounded-[5px] inline-block relative transition-all duration-150 group-hover:border-gray-500/80 peer-checked:bg-accent peer-checked:border-accent after:content-[\'\'] after:absolute after:left-[5px] after:top-[2px] after:w-[4px] after:h-[8px] after:border-solid after:border-[#1c1c1c] after:border-t-0 after:border-l-0 after:border-r-2 after:border-b-2 after:rotate-45 after:hidden peer-checked:after:block body-light:peer-checked:after:border-white"></span>';
       td1label.prepend(td1check);
       td1.append(td1label);
       let td2 = document.createElement("td");
+      td2.className = "p-[10px_12px] text-left";
       td2.innerHTML = item.id;
       let td3 = document.createElement("td");
+      td3.className = "p-[10px_12px] text-center drag-handle cursor-grab select-none";
       td3.innerHTML = `<span>☰</span>`;
-      td3.classList.add("drag-handle");
       tr.innerHTML = "";
       tr.append(td1);
       tr.append(td2);
@@ -142,13 +146,13 @@ document.addEventListener("DOMContentLoaded", () => {
       draggingShortcutRow = row;
       e.dataTransfer.effectAllowed = "move";
       e.dataTransfer.setData("text/plain", null); // Necessary for Firefox
-      row.classList.add("dragging");
+      row.classList.add("dragging", "opacity-95", "bg-gray-500/30", "shadow-[0_4px_12px_rgba(0,0,0,0.3)]", "cursor-grabbing");
     }
   });
 
   shortcutsTableBody.addEventListener("dragend", (e) => {
     if (draggingShortcutRow) {
-      draggingShortcutRow.classList.remove("dragging");
+      draggingShortcutRow.classList.remove("dragging", "opacity-95", "bg-gray-500/30", "shadow-[0_4px_12px_rgba(0,0,0,0.3)]", "cursor-grabbing");
       draggingShortcutRow = null;
     }
   });
@@ -469,7 +473,6 @@ function handleImportFile(file) {
         "theme",
         "topRight",
         "pixelArt",
-        "sidebar",
       ];
       const hasKnownKey = knownKeys.some((key) =>
         importedSettings.hasOwnProperty(key),

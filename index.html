@@ -11,29 +11,41 @@
 </head>
 
 <body>
-    <div id="notification" class="hidden"></div>
+    <div id="notification" class="fixed top-5 right-5 text-white p-[15px] rounded-[5px] z-[1000] opacity-0 transition-opacity hidden"></div>
 
-
-    <div class="clock" id="clock">--:--</div>
-    <div class="top-right" id="top-right"></div>
-    <div class="shortcuts" id="shortcuts"></div>
-
-    <div class="customize" id="customize" title="customize">
-        <span class="customize-icon"></span>
-        <span class="customize-label">Customize</span>
+    <!-- Clock -->
+    <div class="text-[5rem] mt-12" id="clock">--:--</div>
+    <!-- Top Right Icons -->
+    <div class="flex text-lg p-2 gap-4 capitalize cursor-pointer" id="top-right">
+        <!-- <span>...</span> -->
     </div>
-    <div class="photo-credit" id="photo-credit" style="display: none">
+    <!-- Shortcuts -->
+    <div class=" mt-12 flex flex-col items-start max-w-[800px] w-full text-[1.1rem] text-left ml-16 max-h-[calc(100vh-18rem)] overflow-y-auto overflow-x-hidden pr-4 pb-[12rem] overscroll-contain scrollbar-none" id="shortcuts"></div>
+
+    <!-- Customize -->
+    <div class="absolute bottom-4 left-4 cursor-pointer text-inherit flex items-center gap-[0.4rem] transition-opacity group" id="customize" title="customize">
+        <span class="customize-icon transition-transform"></span>
+        <span class="opacity-0 max-w-0 overflow-hidden whitespace-nowrap transition-all text-[0.95rem] underline decoration-dotted group-hover:opacity-100 group-hover:max-w-[6rem]">Customize</span>
+    </div>
+
+    <!-- Photo Credit -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-[0.8rem] text-white/70 bg-black/30 px-2 py-1 rounded-[4px] inline-flex [text-shadow:1px_1px_2px_rgba(0,0,0,0.5)]" id="photo-credit" style="display: none">
         Photo by
-        <a id="photo-credit-link" target="_blank" rel="noopener noreferrer"></a>
+        <a id="photo-credit-link" class="text-white/90 no-underline" target="_blank" rel="noopener noreferrer"></a>
         on
-        <span class="refresh-background" id="refresh-background" title="Get new background" style="display: none"><span
-                class="refresh-icon"></span></span>
+        <span class="inline-flex items-center justify-center cursor-pointer ml-[10px] transition-transform opacity-80 rotate-90 hover:opacity-100" id="refresh-background" title="Get new background" style="display: none">
+            <span class="refresh-icon"></span>
+        </span>
     </div>
-    <div class="theme-toggle" title="Change theme">
-        <span class="theme-icon"></span>
-        <span class="theme-label">System</span>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle absolute bottom-4 right-4 cursor-pointer text-inherit flex items-center gap-[0.4rem] [direction:rtl] transition-opacity group" title="Change theme">
+        <span class="theme-icon transition-transform"></span>
+        <span class="theme-label opacity-0 max-w-0 overflow-hidden whitespace-nowrap transition-all text-[0.95rem] underline decoration-dotted [direction:ltr] group-hover:opacity-100 group-hover:max-w-[4rem]">System</span>
     </div>
-    <div class="art-grid"></div>
+
+    <!-- Art Grid -->
+    <div class="art-grid absolute inset-0 grid grid-cols-12 grid-rows-8 pointer-events-none -z-10"></div>
     <script src="defaultSettings.js"></script>
     <script type="module" src="main.js"></script>
 </body>

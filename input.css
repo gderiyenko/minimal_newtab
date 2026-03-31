@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-accent: #ccc;
+  }
+  body.light {
+    --color-accent: #3b3b3b;
+  }
+  body {
+    @apply font-mono flex flex-col justify-start items-center text-center pt-[calc(10vh+3rem)] text-[1.1rem] transition-[background-image,color] ease-in-out;
+    background-color: transparent;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  body.dark {
+    @apply bg-[#121212] text-[#f0f0f0];
+  }
+  body.light {
+    @apply bg-white text-[#222];
+  }
+}
+
+/* Add any custom styles that are hard to do with Tailwind or are very specific */
+@layer components {
+    /* We will port these to utility classes in HTML/JS mostly */
+    .refresh-icon::before {
+        content: "↻";
+        @apply text-[1.2rem] text-white;
+    }
+}
